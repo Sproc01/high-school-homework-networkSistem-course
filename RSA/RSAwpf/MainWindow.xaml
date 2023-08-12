@@ -1,0 +1,38 @@
+﻿<Window x:Class="RSAwpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="RSA" Background="Azure" Height="350" Width="710.394">
+    <Canvas>
+        <Menu Width="702" Foreground="White" Background="CornflowerBlue">
+            <MenuItem Foreground="White" BorderBrush="Blue" Header="File">
+                <MenuItem Foreground="DarkBlue" Name="btnapri" Header="Apri file" Click="btnapri_Click"/>
+                <MenuItem Foreground="DarkBlue" Name="btnSalva" Header="Salva chiavi" Click="btnSalva_Click"/>
+            </MenuItem>
+            <MenuItem Foreground="White" BorderBrush="Blue" Header="P-Q">
+                <MenuItem Foreground="DarkBlue" Name="btnPQrandom" Header="Generazione casuale P-Q" Click="btnPQrandom_Click"/>
+                <MenuItem Foreground="DarkBlue" Header="Inserimento manuale di P-Q" Click="btnPQinserito_Click"/>
+            </MenuItem>
+            <MenuItem BorderBrush="Blue" Name="btnCalcola" Header="Calcola" Click="btnCalcola_Click"/>
+            <MenuItem BorderBrush="Blue" Name="btnCripta" Header="Cripta messaggio" Click="btnCripta_Click"/>
+            <MenuItem BorderBrush="Blue" Name="btnDecripta" Header="Decripta messaggio" Click="btnDecripta_Click"/>
+        </Menu>
+        <TextBlock TextWrapping="Wrap" Text="Inserisci P: " Canvas.Left="10" Canvas.Top="40"/>
+        <TextBox BorderBrush="CornflowerBlue" TextWrapping="Wrap" Name="txtP" Width="100" PreviewTextInput="txtN_PreviewTextInput" Canvas.Left="73" Canvas.Top="38"/>
+        <TextBlock TextWrapping="Wrap" Text="Inserisci Q: " Canvas.Left="8" Canvas.Top="85"/>
+        <TextBox BorderBrush="CornflowerBlue" TextWrapping="Wrap" Name="txtQ" Width="100" PreviewTextInput="txtN_PreviewTextInput" Canvas.Left="73" Canvas.Top="83"/>
+        <TextBlock TextWrapping="Wrap" Name="txbN" Text=" N: " Canvas.Left="23" Canvas.Top="134"/>
+        <TextBox BorderBrush="CornflowerBlue" TextWrapping="Wrap" IsReadOnly="True" Name="txtN" Width="135" PreviewTextInput="txtN_PreviewTextInput" Canvas.Left="23" Canvas.Top="155"/>
+        <TextBlock TextWrapping="Wrap" Text=" Chiave Pubblica(N,E): " Canvas.Left="23" Canvas.Top="242"/>
+        <TextBox BorderBrush="CornflowerBlue" IsReadOnly="True" TextWrapping="Wrap" Name="txtPubb" Width="135" Canvas.Left="23" Canvas.Top="263"/>
+        <TextBlock TextWrapping="Wrap" Text=" Chiave Privata(N,D): " Canvas.Top="183" Canvas.Left="23"/>
+        <TextBox BorderBrush="CornflowerBlue"  IsReadOnly="True" TextWrapping="Wrap" Name="txtPriv" Width="135" Canvas.Top="204" Canvas.Left="23"/>
+        <TextBlock Text="Inserisci testo da cifrare:" Canvas.Left="196" Canvas.Top="34"/>
+        <TextBox BorderBrush="CornflowerBlue" Height="236" TextWrapping="Wrap" Name="txtCifrare" ScrollViewer.VerticalScrollBarVisibility="Visible" Canvas.Left="196" Canvas.Top="54" RenderTransformOrigin="0.5,0.5" Width="150"/>
+        <TextBlock Text="Testo Cifrato" Canvas.Left="364" Canvas.Top="34"/>
+        <TextBox BorderBrush="CornflowerBlue" IsReadOnly="True" TextWrapping="Wrap" Name="txtCifrato" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="235" Canvas.Left="364" Canvas.Top="56" Width="150"/>
+        <TextBlock Text="Testo Decifrato" Canvas.Left="534" Canvas.Top="34"/>
+        <TextBox BorderBrush="CornflowerBlue" IsReadOnly="True" TextWrapping="Wrap" Name="txtDecifra" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="236" Canvas.Left="534" Canvas.Top="55" Width="150"/>
+        <TextBlock Name="txtQcorrect" Canvas.Left="178" TextWrapping="Wrap" Canvas.Top="85"/>
+        <TextBlock Canvas.Left="178" TextWrapping="Wrap" Name="txtPcorrect" Canvas.Top="40"/>
+    </Canvas>
+</Window>

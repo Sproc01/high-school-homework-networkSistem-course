@@ -1,0 +1,76 @@
+MPLINK 4.40, Linker
+Linker Map File - Created Wed Jan 16 12:11:16 2019
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x000002
+                   .org_2       code   0x000004    program   0x0000d4
+  .config_2007_TEMPLATE.O       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000000      
+                            0x000004    0x00006d      
+                            0x002007    0x002007      
+            108 out of 1093 program addresses used, program memory utilization is 9%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+         AccendiLampadina   0x00004e    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                    Delay   0x000065    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                     LOOP   0x000010    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                    LOOP2   0x000069    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                    LOOP3   0x000067    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                     Main   0x000005    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                PULSANTE1   0x000018    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                PULSANTE2   0x000020    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                  RUOTADX   0x000037    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                  RUOTASX   0x000028    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+          SpegniLampadina   0x000051    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+            TestLampadina   0x000046    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                 entrambi   0x000054    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                entrambi1   0x000058    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                entrambi2   0x00005e    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                     loop   0x00002d    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                    loop1   0x00003c    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                    loop2   0x000033    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                    loop3   0x000042    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+              ruotacursdx   0x00003f    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+              ruotacurssx   0x000030    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                     Main   0x000005    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                     LOOP   0x000010    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                PULSANTE1   0x000018    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                PULSANTE2   0x000020    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                  RUOTASX   0x000028    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                     loop   0x00002d    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+              ruotacurssx   0x000030    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                    loop2   0x000033    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                  RUOTADX   0x000037    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                    loop1   0x00003c    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+              ruotacursdx   0x00003f    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                    loop3   0x000042    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+            TestLampadina   0x000046    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+         AccendiLampadina   0x00004e    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+          SpegniLampadina   0x000051    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                 entrambi   0x000054    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                entrambi1   0x000058    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                entrambi2   0x00005e    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                    Delay   0x000065    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                    LOOP3   0x000067    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+                    LOOP2   0x000069    program     static E:\Dati\sistemi\Laboratorio\Microcontrollore\Termostato - Copia\template.asm
+
+

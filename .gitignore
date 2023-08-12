@@ -396,3 +396,9 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+### macOS ###
+# General
+.DS_Store
+.AppleDouble
+.LSOverride

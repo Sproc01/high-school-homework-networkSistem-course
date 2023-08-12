@@ -1,0 +1,271 @@
+MPASM  5.42                      TEMPLATE.ASM   9-24-2018  11:55:51         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 ;**************************************************
+                      00002 ;*** Struttura base programma con la PIC 16F84 ***
+                      00003 ;***                                            ***
+                      00004 ;    [Programma assoluto]
+                      00005 ;
+                      00006 ; (c) 2018, Michele Sprocatti
+                      00007 ;
+                      00008 ;**************************************************
+                      00009         PROCESSOR       16F84A       ;definizione del tipo di Pic per il quale è stato scritto il progra
+                            mma
+                      00010         RADIX           DEC              ;i numeri scritti senza notazione sono da intendersi come decim
+                            ali
+                      00011         INCLUDE         "P16F84A.INC" ;inclusione del file che contiene la definizione delle costanti di
+                             riferimento al file dei
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ;  MPASM PIC16F84A processor include
+                      00005 ; 
+                      00006 ;  (c) Copyright 1999-2011 Microchip Technology, All rights reserved
+                      00007 ;==========================================================================
+                      00008 
+                      00201         LIST
+                      00012                                                                  ;registri (memoria Ram)
+                      00013         ERRORLEVEL      -302             ;permette di escludere alcuni errori di compilazione, la  segna
+                            lazione  302  ricorda  di 
+                      00014                                      ;commutare il banco di memoria qualora si utilizzino registri che n
+                            on stanno nel banco 0
+                      00015 
+                      00016 
+                      00017         ;Setup of PIC configuration flags
+                      00018         ;XT oscillator
+                      00019         ;Disable watch dog timer
+                      00020         ;Enable power up timer
+                      00021         ;Disable code protect
+                      00022 ;        __CONFIG        0x3FF1       ; definizione del file di configurazione
+2007   3FF1           00023                 __CONFIG   _XT_OSC & _CP_OFF & _WDT_OFF &_PWRTE_ON
+                      00024 
+                      00025 ;=============================================================
+                      00026 ;       DEFINE
+                      00027 ;=============================================================
+                      00028 ;Definizione comandi
+                      00029 ;#define  Bank1 bsf     STATUS,RP0                        ; Attiva banco 1
+                      00030 ;#define  Bank0 bcf     STATUS,RP0                ; Attiva banco 0
+                      00031 ;=============================================================
+                      00032 ;               SIMBOLI
+                      00033 ;=============================================================
+                      00034 ;LABEL  CODE    OPERANDO        COMMENTO
+                      00035 ;=============================================================
+  00000001            00036 LED_ON  EQU     01                                        ; Led acceso
+  00000000            00037 LED_OFF EQU         00                                    ; Led spento
+                      00038 ;=============================================================
+                      00039 ;       AREA DATI
+MPASM  5.42                      TEMPLATE.ASM   9-24-2018  11:55:51         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00040 ;=============================================================  
+                      00041 ;LABEL  CODE    OPERANDO        COMMENTO
+                      00042 ;=============================================================
+  0000000C            00043 delayA EQU     0x0C                                       
+  0000000D            00044 delayB EQU     0x0D
+  0000000E            00045 delayC EQU         0x0E                         
+                      00046 ;=============================================================
+                      00047 ;       PROGRAMMA PRINCIPALE
+                      00048 ;=============================================================
+                      00049 ;LABEL  CODE    OPERANDO        COMMENTO
+                      00050 ;=============================================================        ;Reset Vector
+                      00051         ;Start point at CPU reset
+0000                  00052         ORG     0x0000                            ;     indirizzo di inizio programma
+0000   2805           00053                 goto    Main
+                      00054 ;=============================================================
+                      00055 ;       INTERRUPT AREA
+                      00056 ;=============================================================
+0004                  00057                 ORG     0x0004                            ;     indirizzo inizio routine interrupt
+                      00058 ;
+                      00059 ;
+0004   0009           00060                 retfie                                            ; ritorno programma principale
+                      00061 ;=============================================================
+                      00062 ;       AREA PROGRAMMA PRINCIPALE
+                      00063 ;=============================================================
+Warning[207]: Found label after column 1. (Main)
+0005                  00064                 Main
+0005   1683           00065                 Bsf STATUS,RP0
+0006   0186           00066                 clrf TRISB
+0007   1283           00067                 bcf STATUS, RP0
+0008   0186           00068                 clrf PORTB
+Warning[207]: Found label after column 1. (Loop)
+0009                  00069                 Loop
+0009   2011           00070                 call Delay;routine ritardo
+000A   1C06           00071                 btfss PORTB,0
+000B   3001           00072                 movlw LED_ON
+000C   1806           00073                 btfsc PORTB,0
+000D   3000           00074                 movlw LED_OFF
+000E   0086           00075                 movwf PORTB
+000F   2809           00076                 goto Loop
+0010   0000           00077                 nop
+                      00078 ;=============================================================
+                      00079 ;       AREA ROUTINE
+                      00080 ;=============================================================
+                      00081 ;       
+Warning[207]: Found label after column 1. (Delay)
+0011                  00082                 Delay
+0011   018C           00083                 clrf delayA
+0012   3082           00084                 movlw 130
+0013   008D           00085                 movwf delayB
+0014   3005           00086                 movlw 5
+0015   008E           00087                 movwf delayC
+0016                  00088 loop
+Message[305]: Using default destination of 1 (file).
+MPASM  5.42                      TEMPLATE.ASM   9-24-2018  11:55:51         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0016   0B8C           00089                 decfsz delayA
+0017   2816           00090                 goto loop
+Message[305]: Using default destination of 1 (file).
+0018   0B8D           00091                 decfsz delayB
+0019   2816           00092                 goto loop
+001A   3082           00093                 movlw 130
+001B   008D           00094                 movwf delayB
+Message[305]: Using default destination of 1 (file).
+001C   0B8E           00095                 decfsz delayC
+001D   2816           00096                 goto loop
+001E   0008           00097                 return
+                      00098                                                                                         
+                      00099         END                           ; Fine programma
+MPASM  5.42                      TEMPLATE.ASM   9-24-2018  11:55:51         PAGE  4
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+C                                 00000000
+DC                                00000001
+Delay                             00000011
+EEADR                             00000009
+EECON1                            00000088
+EECON2                            00000089
+EEDATA                            00000008
+EEIE                              00000006
+EEIF                              00000004
+F                                 00000001
+FSR                               00000004
+GIE                               00000007
+INDF                              00000000
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IRP                               00000007
+LED_OFF                           00000000
+LED_ON                            00000001
+Loop                              00000009
+Main                              00000005
+NOT_PD                            00000003
+NOT_RBPU                          00000007
+NOT_TO                            00000004
+OPTION_REG                        00000081
+PCL                               00000002
+PCLATH                            0000000A
+PORTA                             00000005
+PORTB                             00000006
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+RB3                               00000003
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RD                                00000000
+RP0                               00000005
+RP1                               00000006
+STATUS                            00000003
+MPASM  5.42                      TEMPLATE.ASM   9-24-2018  11:55:51         PAGE  5
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TRISA                             00000085
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+TRISB                             00000086
+TRISB0                            00000000
+TRISB1                            00000001
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+W                                 00000000
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+Z                                 00000002
+_CONFIG                           00002007
+_CP_OFF                           00003FFF
+_CP_ON                            0000000F
+_DEVID1                           00002006
+_HS_OSC                           00003FFE
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_LP_OSC                           00003FFC
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_RC_OSC                           00003FFF
+_WDT_OFF                          00003FFB
+_WDT_ON                           00003FFF
+_XT_OSC                           00003FFD
+__16F84A                          00000001
+__DEBUG                           1
+delayA                            0000000C
+delayB                            0000000D
+delayC                            0000000E
+loop                              00000016
+MPASM  5.42                      TEMPLATE.ASM   9-24-2018  11:55:51         PAGE  6
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+
+0000 : X---XXXXXXXXXXXX XXXXXXXXXXXXXXX- ---------------- ----------------
+2000 : -------X-------- ---------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:    28
+Program Memory Words Free:   996
+
+
+Errors   :     0
+Warnings :     3 reported,     0 suppressed
+Messages :     3 reported,     1 suppressed
+
+

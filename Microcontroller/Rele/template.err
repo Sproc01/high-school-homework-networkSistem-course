@@ -1,0 +1,13 @@
+Warning[215] E:\DATI\SISTEMI\LABORATORIO\MICROCONTROLLORE\RELE\TEMPLATE.ASM 9 : Processor superseded by command line.  Verify processor symbol.
+Message[301] C:\PROGRAM FILES (X86)\MICROCHIP\MPASM SUITE\P16F84A.INC 33 : MESSAGE: (Processor-header file mismatch.  Verify selected processor.)
+Warning[207] E:\DATI\SISTEMI\LABORATORIO\MICROCONTROLLORE\RELE\TEMPLATE.ASM 69 : Found label after column 1. (Main)
+Message[305] E:\DATI\SISTEMI\LABORATORIO\MICROCONTROLLORE\RELE\TEMPLATE.ASM 102 : Using default destination of 1 (file).
+Message[305] E:\DATI\SISTEMI\LABORATORIO\MICROCONTROLLORE\RELE\TEMPLATE.ASM 111 : Using default destination of 1 (file).
+Message[305] E:\DATI\SISTEMI\LABORATORIO\MICROCONTROLLORE\RELE\TEMPLATE.ASM 127 : Using default destination of 1 (file).
+Message[305] E:\DATI\SISTEMI\LABORATORIO\MICROCONTROLLORE\RELE\TEMPLATE.ASM 146 : Using default destination of 1 (file).
+Message[305] E:\DATI\SISTEMI\LABORATORIO\MICROCONTROLLORE\RELE\TEMPLATE.ASM 148 : Using default destination of 1 (file).
+Warning[207] E:\DATI\SISTEMI\LABORATORIO\MICROCONTROLLORE\RELE\TEMPLATE.ASM 151 : Found label after column 1. (delay)
+Message[305] E:\DATI\SISTEMI\LABORATORIO\MICROCONTROLLORE\RELE\TEMPLATE.ASM 160 : Using default destination of 1 (file).
+Message[305] E:\DATI\SISTEMI\LABORATORIO\MICROCONTROLLORE\RELE\TEMPLATE.ASM 162 : Using default destination of 1 (file).
+Message[305] E:\DATI\SISTEMI\LABORATORIO\MICROCONTROLLORE\RELE\TEMPLATE.ASM 166 : Using default destination of 1 (file).
+Message[305] E:\DATI\SISTEMI\LABORATORIO\MICROCONTROLLORE\RELE\TEMPLATE.ASM 170 : Using default destination of 1 (file).

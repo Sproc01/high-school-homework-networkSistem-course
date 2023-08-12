@@ -1,0 +1,3 @@
+Warning[215] G:\DATI\2015_16\S_R\MATERIALE\ASSEMBLER\TEMPLATE\TEMPLATE.ASM 9 : Processor superseded by command line.  Verify processor symbol.
+Message[301] C:\PROGRAM FILES (X86)\MICROCHIP\MPASM SUITE\P16F84A.INC 33 : MESSAGE: (Processor-header file mismatch.  Verify selected processor.)
+Warning[207] G:\DATI\2015_16\S_R\MATERIALE\ASSEMBLER\TEMPLATE\TEMPLATE.ASM 64 : Found label after column 1. (Main)

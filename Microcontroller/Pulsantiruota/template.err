@@ -1,0 +1,8 @@
+Warning[215] F:\SPOSTAMENTO LED 2\TEMPLATE.ASM 9 : Processor superseded by command line.  Verify processor symbol.
+Message[301] C:\PROGRAM FILES (X86)\MICROCHIP\MPASM SUITE\P16F84A.INC 33 : MESSAGE: (Processor-header file mismatch.  Verify selected processor.)
+Warning[207] F:\SPOSTAMENTO LED 2\TEMPLATE.ASM 67 : Found label after column 1. (Main)
+Message[305] F:\SPOSTAMENTO LED 2\TEMPLATE.ASM 91 : Using default destination of 1 (file).
+Message[305] F:\SPOSTAMENTO LED 2\TEMPLATE.ASM 97 : Using default destination of 1 (file).
+Message[305] F:\SPOSTAMENTO LED 2\TEMPLATE.ASM 112 : Using default destination of 1 (file).
+Message[305] F:\SPOSTAMENTO LED 2\TEMPLATE.ASM 114 : Using default destination of 1 (file).
+Message[305] F:\SPOSTAMENTO LED 2\TEMPLATE.ASM 118 : Using default destination of 1 (file).

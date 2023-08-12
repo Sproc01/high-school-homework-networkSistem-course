@@ -1,0 +1,35 @@
+﻿<Window x:Class="RSAwpf.WindowInput"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RSAwpf"
+        mc:Ignorable="d"
+        Title="WindowInput" Background="Azure" Height="300" Width="503.008">
+    <Canvas>
+        <Menu Foreground="White" Background="CornflowerBlue" Width="495">
+            <MenuItem BorderBrush="Blue" Header="P-Q">
+                <MenuItem Background="CornflowerBlue" Header="Inserisci Manualmente P e Q" Name="btnmanuale" Click="btnmanuale_Click"/>
+                <MenuItem  Background="CornflowerBlue" Header="Genera casualmente P e Q" Name="btncasuale" Click="Btncasuale_Click"/>
+            </MenuItem>
+            <MenuItem BorderBrush="Blue" Name="btnCalcola" Header="Calcola" Click="btnCalcola_Click"/>
+        </Menu>
+        <TextBlock Name="txtQcorrect" Canvas.Left="192" TextWrapping="Wrap" Canvas.Top="174"/>
+        <TextBlock Canvas.Left="192" TextWrapping="Wrap" Name="txtPcorrect" Canvas.Top="137"/>
+        <TextBlock TextWrapping="Wrap" Text="P: " Canvas.Left="10" Canvas.Top="137"/>
+        <TextBox BorderBrush="CornflowerBlue" TextWrapping="Wrap" Name="txtP" Width="100" PreviewTextInput="txtP_PreviewTextInput"  Canvas.Left="71" Canvas.Top="137"/>
+        <TextBlock TextWrapping="Wrap" Text="Nome: " Canvas.Left="10" Canvas.Top="59"/>
+        <TextBox BorderBrush="CornflowerBlue" TextWrapping="Wrap" Name="txtNome" Width="100" PreviewTextInput="txtNome_PreviewTextInput" Canvas.Left="71" Canvas.Top="57"/>
+        <TextBlock TextWrapping="Wrap" Text="Q: " Canvas.Left="10" Canvas.Top="174"/>
+        <TextBox BorderBrush="CornflowerBlue" TextWrapping="Wrap" Name="txtQ" Width="100" Canvas.Left="71" Canvas.Top="174" PreviewTextInput="txtP_PreviewTextInput"/>
+        <TextBox BorderBrush="CornflowerBlue" TextWrapping="Wrap" Name="txtCognome" Width="100" Canvas.Left="71" Canvas.Top="91" PreviewTextInput="txtNome_PreviewTextInput"/>
+        <TextBlock TextWrapping="Wrap" Text="Cognome: " Canvas.Left="10" Canvas.Top="91"/>
+        <TextBlock TextWrapping="Wrap" Name="txbN" Text=" N: " Canvas.Left="272" Canvas.Top="55"/>
+        <TextBox BorderBrush="CornflowerBlue" TextWrapping="Wrap" IsReadOnly="True" Name="txtN" Width="135" Canvas.Left="306" Canvas.Top="55"/>
+        <TextBlock TextWrapping="Wrap" Text=" Chiave Pubblica(N,E): " Canvas.Left="306" Canvas.Top="142"/>
+        <TextBox BorderBrush="CornflowerBlue" IsReadOnly="True" TextWrapping="Wrap" Name="txtPubb" Width="135" Canvas.Left="306" Canvas.Top="174"/>
+        <TextBlock TextWrapping="Wrap" Text=" Chiave Privata(N,D): " Canvas.Top="78" Canvas.Left="306"/>
+        <TextBox BorderBrush="CornflowerBlue"  IsReadOnly="True" TextWrapping="Wrap" Name="txtPriv" Width="135" Canvas.Top="107" Canvas.Left="306"/>
+        <Button Content="Ok" Name="btnOK" Click="btnOK_Click" Canvas.Left="325" Canvas.Top="219" Width="75"/>
+    </Canvas>
+</Window>

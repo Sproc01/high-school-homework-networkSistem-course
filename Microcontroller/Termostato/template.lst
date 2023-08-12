@@ -1,0 +1,417 @@
+MPASM  5.42                      TEMPLATE.ASM   1-16-2019  12:11:15         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 
+                      00002 ;**************************************************
+                      00003 ;*** Struttura base programma con la PIC 16F84 ***
+                      00004 ;***                                            ***
+                      00005 ;    [Programma assoluto]
+                      00006 ;
+                      00007 ; (c) 2015, Federico Melon
+                      00008 ;
+                      00009 ;**************************************************
+Warning[215]: Processor superseded by command line.  Verify processor symbol.
+                      00010         PROCESSOR       16F84A       ;definizione del tipo di Pic per il quale è stato scritto il progra
+                            mma
+                      00011         RADIX           DEC              ;i numeri scritti senza notazione sono da intendersi come decim
+                            ali
+                      00012         INCLUDE         "P16F84A.INC" ;inclusione del file che contiene la definizione delle costanti di
+                             riferimento al file dei
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ;  MPASM PIC16F84A processor include
+                      00005 ; 
+                      00006 ;  (c) Copyright 1999-2011 Microchip Technology, All rights reserved
+                      00007 ;==========================================================================
+                      00008 
+Message[301]: MESSAGE: (Processor-header file mismatch.  Verify selected processor.)
+                      00201         LIST
+                      00013                                                                  ;registri (memoria Ram)
+                      00014         ERRORLEVEL      -302             ;permette di escludere alcuni errori di compilazione, la  segna
+                            lazione  302  ricorda  di 
+                      00015                                      ;commutare il banco di memoria qualora si utilizzino registri che n
+                            on stanno nel banco 0
+                      00016 
+                      00017 
+                      00018         ;Setup of PIC configuration flags
+                      00019         ;XT oscillator
+                      00020         ;Disable watch dog timer
+                      00021         ;Enable power up timer
+                      00022         ;Disable code protect
+                      00023 ;        __CONFIG        0x3FF1       ; definizione del file di configurazione
+2007   3FF1           00024                 __CONFIG   _XT_OSC & _CP_OFF & _WDT_OFF &_PWRTE_ON
+                      00025 
+                      00026 ;=============================================================
+                      00027 ;       DEFINE
+                      00028 ;=============================================================
+                      00029 ;Definizione comandi
+                      00030 ;#define  Bank1 bsf     STATUS,RP0                        ; Attiva banco 1
+                      00031 ;#define  Bank0 bcf     STATUS,RP0                ; Attiva banco 0
+                      00032 ;=============================================================
+                      00033 ;               SIMBOLI
+                      00034 ;=============================================================
+                      00035 ;LABEL  CODE    OPERANDO        COMMENTO
+                      00036 ;=============================================================
+  00000003            00037 PULSANTESX EQU 3
+MPASM  5.42                      TEMPLATE.ASM   1-16-2019  12:11:15         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+  00000004            00038 PULSANTEDX EQU 4
+  00000002            00039 PULSANTE EQU 2
+  0000000C            00040 DELAYA     EQU 0X0C
+  0000000D            00041 DELAYB     EQU 0X0D
+  0000000E            00042 stato      EQU 0x0E
+  0000000F            00043 flag       EQU 0x0F
+  00000010            00044 cursor     EQU 0x10
+  00000011            00045 premuti    EQU 0x11
+  00000012            00046 sposta     EQU 0x12
+                      00047 ;=============================================================
+                      00048 ;       AREA DATI
+                      00049 ;=============================================================  
+                      00050 ;LABEL  CODE    OPERANDO        COMMENTO
+                      00051 ;=============================================================  
+                      00052 ;=============================================================
+                      00053 ;       PROGRAMMA PRINCIPALE
+                      00054 ;=============================================================
+                      00055 ;LABEL  CODE    OPERANDO        COMMENTO
+                      00056 ;=============================================================        ;Reset Vector
+                      00057         ;Start point at CPU reset
+0000                  00058         ORG     0x0000                            ;     indirizzo di inizio programma
+0000   2805           00059                 goto    Main
+                      00060 ;=============================================================
+                      00061 ;       INTERRUPT AREA
+                      00062 ;=============================================================
+0004                  00063                 ORG     0x0004                            ;     indirizzo inizio routine interrupt
+                      00064 ;
+                      00065 ;
+0004   0009           00066                 retfie                                            ; ritorno programma principale
+                      00067 ;=============================================================
+                      00068 ;       AREA PROGRAMMA PRINCIPALE
+                      00069 ;=============================================================
+Warning[207]: Found label after column 1. (Main)
+0005                  00070                 Main
+                      00071 
+0005   1683           00072                 BSF STATUS,RP0  ;BANK 1
+0006   3018           00073                 MOVLW b'11000'
+0007   0085           00074                 MOVWF TRISA             ;SETTATI I BIT 3 E 4 DELLA PORTA A IN INPUT E CORRISPONDONO AGLI
+                             SWITCH SINISTRO E DESTRO
+0008   0186           00075                 CLRF TRISB      ;PORTA B IN OUTPUT
+0009   1283           00076                 BCF STATUS,RP0  ;SPOSTAMENTO SU BANK 0
+000A   3001           00077                 MOVLW 1 
+000B   008E           00078         MOVWF stato     ;inizializzazione registro
+000C   0185           00079                 CLRF PORTA              ;inizializzazione porta A
+000D   018F           00080         CLRF flag
+000E   0190           00081                 clrf cursor             ;inizializzazione registro
+000F   1003           00082                 BCF STATUS,C    ;CONTROLLO DEL CARRY
+                      00083 
+0010                  00084 LOOP            
+0010   1D85           00085                 BTFSS PORTA,PULSANTESX ;controllo bottone premuto
+0011   2018           00086                 CALL PULSANTE1
+0012   1E05           00087                 BTFSS PORTA,PULSANTEDX
+0013   2020           00088                 CALL PULSANTE2        
+MPASM  5.42                      TEMPLATE.ASM   1-16-2019  12:11:15         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0014   080E           00089                 movf stato,W
+0015   0410           00090                 iorwf cursor,w  ;output tramite or tra i due registri(cursore e stato)
+0016   0086           00091         movwf PORTB
+0017   2810           00092                 GOTO LOOP
+                      00093 
+0018                  00094 PULSANTE1       
+0018   2065           00095                 CALL Delay
+0019   1985           00096                 BTFSC PORTA,PULSANTESX
+001A   0008           00097                 return
+001B   1E05           00098                 BTFSS PORTA,PULSANTEDX
+001C   2054           00099                 CALL entrambi ;premuti entrambi i bottoni
+001D   1A05           00100                 BTFSC PORTA,PULSANTEDX
+001E   2028           00101                 CALL RUOTASX ;premuto solo uno
+001F   0008           00102                 return
+                      00103 
+0020                  00104 PULSANTE2
+0020   2065           00105                 CALL Delay
+0021   1A05           00106                 BTFSC PORTA,PULSANTEDX
+0022   0008           00107                 return
+0023   1D85           00108                 BTFSS PORTA,PULSANTESX
+0024   2054           00109                 CALL entrambi ;premuti entrambi i bottoni
+0025   1985           00110                 BTFSC PORTA,PULSANTESX
+0026   2037           00111                 CALL RUOTADX ;premuto solo uno
+0027   0008           00112                 return
+                      00113 
+0028                  00114 RUOTASX
+0028   180F           00115                 BTFSC flag,0
+0029   2830           00116                 goto ruotacurssx
+002A   1003           00117                 BCF STATUS,C
+002B   1F8E           00118                 BTFSS stato,7
+Message[305]: Using default destination of 1 (file).
+002C   0D8E           00119                 RLF stato
+002D   1D85           00120 loop    BTFSS PORTA,PULSANTESX ;controllo se bottone è mantenuto premuto
+002E   282D           00121                 goto loop
+002F   0008           00122                 return
+0030                  00123 ruotacurssx
+0030   1003           00124                 BCF STATUS,C
+0031   1F90           00125                 BTFSS cursor,7
+Message[305]: Using default destination of 1 (file).
+0032   0D90           00126                 RLF cursor
+0033   1D85           00127 loop2   BTFSS PORTA,PULSANTESX ;controllo se bottone è mantenuto premuto
+0034   2833           00128                 goto loop2
+0035   2846           00129                 goto TestLampadina
+0036   0008           00130                 return
+                      00131 
+0037                  00132 RUOTADX
+0037   180F           00133                 BTFSC flag,0
+0038   283F           00134                 goto ruotacursdx
+0039   1003           00135                 BCF STATUS,C
+003A   1C0E           00136                 BTFSS stato,0
+Message[305]: Using default destination of 1 (file).
+003B   0C8E           00137                 RRF stato
+003C   1E05           00138 loop1   BTFSS PORTA,PULSANTEDX ;controllo se bottone è mantenuto premuto
+MPASM  5.42                      TEMPLATE.ASM   1-16-2019  12:11:15         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+003D   283C           00139                 goto loop1
+003E   0008           00140                 return
+003F                  00141 ruotacursdx
+003F   1003           00142                 BCF STATUS,C
+0040   1C10           00143                 BTFSS cursor,0
+Message[305]: Using default destination of 1 (file).
+0041   0C90           00144                 RRF cursor
+0042   1E05           00145 loop3   BTFSS PORTA,PULSANTEDX ;controllo se bottone è mantenuto premuto
+0043   2842           00146                 goto loop3
+0044   2846           00147                 goto TestLampadina
+0045   0008           00148                 return
+                      00149 
+0046                  00150 TestLampadina   ;test per vedere se led cursore è maggiore del led di stato
+0046   080E           00151         MOVF stato,w
+0047   0210           00152         SUBWF cursor,w
+0048   1803           00153         BTFSC STATUS, C
+0049   1D03           00154                 BTFSS STATUS, Z
+004A   204E           00155         Call AccendiLampadina ;caso sia maggiore
+004B   1C03           00156         BTFSS STATUS,C
+004C   2051           00157         CALL SpegniLampadina ;caso sia minore
+004D   0008           00158         return
+                      00159 
+004E                  00160 AccendiLampadina ;accensione lampadina
+004E   1485           00161      BSF PORTA,1
+004F   1505           00162          BSF PORTA,2 
+0050   0008           00163       return
+                      00164 
+0051                  00165 SpegniLampadina ;spegnimento lampadina
+0051   1085           00166      BCF PORTA,1
+0052   1105           00167          BCF PORTA,2
+0053   0008           00168      return
+0054                  00169 entrambi
+0054   1811           00170                 btfsc premuti,0
+0055   2858           00171                 goto entrambi1
+0056   1891           00172                 btfsc premuti,1
+0057   285E           00173                 goto entrambi2
+0058                  00174 entrambi1       ;quando vengono premuti entrambi i bottoni
+0058   3001           00175                 MOVLW 1
+0059   1091           00176                 bcf premuti,1
+005A   1411           00177                 bsf premuti,0
+005B   008F           00178                 movwf flag
+005C   0090           00179         movwf cursor
+005D   0008           00180                 return  
+005E                  00181 entrambi2       ;quando vengono premuti entrambi i bottoni
+005E   1011           00182                 bcf premuti,0
+005F   1491           00183                 bsf premuti,1
+0060   0810           00184         movf cursor,w
+0061   008E           00185                 movwf stato
+0062   0190           00186                 clrf cursor
+0063   1490           00187                 bsf cursor,1
+0064   0008           00188                 return  
+                      00189 ;=============================================================
+                      00190 ;       AREA ROUTINE
+MPASM  5.42                      TEMPLATE.ASM   1-16-2019  12:11:15         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00191 ;=============================================================
+                      00192 ;
+0065                  00193 Delay
+0065   3050           00194                 MOVLW 80
+0066   008D           00195                 MOVWF DELAYB
+0067   30FF           00196 LOOP3   MOVLW 255
+0068   008C           00197                 MOVWF DELAYA
+Message[305]: Using default destination of 1 (file).
+0069   0B8C           00198 LOOP2   DECFSZ DELAYA
+006A   2869           00199                 GOTO LOOP2
+Message[305]: Using default destination of 1 (file).
+006B   0B8D           00200                 DECFSZ DELAYB
+006C   2867           00201                 GOTO LOOP3
+006D   0008           00202                 return
+                      00203         END                           ; Fine programma
+MPASM  5.42                      TEMPLATE.ASM   1-16-2019  12:11:15         PAGE  6
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+AccendiLampadina                  0000004E
+C                                 00000000
+DC                                00000001
+DELAYA                            0000000C
+DELAYB                            0000000D
+Delay                             00000065
+EEADR                             00000009
+EECON1                            00000088
+EECON2                            00000089
+EEDATA                            00000008
+EEIE                              00000006
+EEIF                              00000004
+F                                 00000001
+FSR                               00000004
+GIE                               00000007
+INDF                              00000000
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IRP                               00000007
+LOOP                              00000010
+LOOP2                             00000069
+LOOP3                             00000067
+Main                              00000005
+NOT_PD                            00000003
+NOT_RBPU                          00000007
+NOT_TO                            00000004
+OPTION_REG                        00000081
+PCL                               00000002
+PCLATH                            0000000A
+PORTA                             00000005
+PORTB                             00000006
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+PULSANTE                          00000002
+PULSANTE1                         00000018
+PULSANTE2                         00000020
+PULSANTEDX                        00000004
+PULSANTESX                        00000003
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+RB3                               00000003
+RB4                               00000004
+RB5                               00000005
+MPASM  5.42                      TEMPLATE.ASM   1-16-2019  12:11:15         PAGE  7
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RD                                00000000
+RP0                               00000005
+RP1                               00000006
+RUOTADX                           00000037
+RUOTASX                           00000028
+STATUS                            00000003
+SpegniLampadina                   00000051
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TRISA                             00000085
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+TRISB                             00000086
+TRISB0                            00000000
+TRISB1                            00000001
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+TestLampadina                     00000046
+W                                 00000000
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+Z                                 00000002
+_CONFIG                           00002007
+_CP_OFF                           00003FFF
+_CP_ON                            0000000F
+_DEVID1                           00002006
+_HS_OSC                           00003FFE
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_LP_OSC                           00003FFC
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_RC_OSC                           00003FFF
+_WDT_OFF                          00003FFB
+MPASM  5.42                      TEMPLATE.ASM   1-16-2019  12:11:15         PAGE  8
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_WDT_ON                           00003FFF
+_XT_OSC                           00003FFD
+__16F84                           00000001
+cursor                            00000010
+entrambi                          00000054
+entrambi1                         00000058
+entrambi2                         0000005E
+flag                              0000000F
+loop                              0000002D
+loop1                             0000003C
+loop2                             00000033
+loop3                             00000042
+premuti                           00000011
+ruotacursdx                       0000003F
+ruotacurssx                       00000030
+sposta                            00000012
+stato                             0000000E
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+0000 : X---XXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0040 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXX-- ----------------
+2000 : -------X-------- ---------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:   107
+Program Memory Words Free:   917
+
+
+Errors   :     0
+Warnings :     2 reported,     0 suppressed
+Messages :     7 reported,     2 suppressed
+
+
